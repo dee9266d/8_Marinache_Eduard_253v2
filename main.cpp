@@ -30,6 +30,7 @@ public:
         if (first == NULL) return 1;  // 1 daca stiva este goala.
         return 0;
     }
+
     // Functia Push pune un element in coada prin spate.
     void push(char x) {
         if (isempty() == 1) {
@@ -117,7 +118,49 @@ public:
     friend istream &operator>>(istream &in, coada &z);
 };
 
-    // Supraincarcarea operatorului <<
+class Coada_sir {
+    coada *vector;
+    int nr_elem;
+public:
+    Coada_sir(int nr) : nr_elem(nr) {
+        vector = new coada[nr];
+    };
+
+    void citire() {
+        for (int iterator = 0; iterator < nr_elem; iterator++) {
+            int nr;
+            cout << "numarul de elemente pt coada " << iterator + 1 << " :";
+            cin >> nr;
+            while (nr) {
+                char caracter;
+                cin >> caracter;
+                vector[iterator].push(caracter);
+                nr--;
+            }
+
+        }
+    }
+
+    void afisare() {
+        for (int iterator = 0; iterator < nr_elem; iterator++) {
+            cout << "coada " << iterator + 1 << " : ";
+            cout << vector[iterator];
+            cout << endl;
+        }
+
+    }
+    //am folosit un getter pentru a putea lua un element din vector dupa iterator
+    coada get(int iterator) {
+        return vector[iterator];
+    }
+
+    ~Coada_sir() {
+        delete[]vector;
+    }
+
+};
+
+// Supraincarcarea operatorului <<
 ostream &operator<<(ostream &out, coada &z) {
     while (z.isempty() != 1) {
         out << z.first->info << " ";
@@ -125,7 +168,7 @@ ostream &operator<<(ostream &out, coada &z) {
     }
 }
 
-    // Supraincarcarea operatorului >>
+// Supraincarcarea operatorului >>
 istream &operator>>(istream &in, coada &z) {
     char aux;
     in >> aux;
@@ -133,33 +176,50 @@ istream &operator>>(istream &in, coada &z) {
 }
 
 int main() {
-    coada z, t, q; // z respectiv t sunt caracterele din fiecare coada.
-    if (z.isempty() == 1) cout << "Da" << '\n';
-    cin >> z;
-    cin >> z;
-    cin >> z;
-    cin >> z;
-    cin >> z;
-    cin >> z;
-    cin >> t;
-    cin >> t;
-    cin >> t;
-    cin >> t;
-    cin >> t;
-    cin >> t;
-    cin >> t;
-    cin >> t;
-    cin >> t;
-    cin >> t;
-    cin >> t;
-    cin >> t;
-    q = z + t;
-    cout << q;
+//    coada z, t, q; // z respectiv t sunt caracterele din fiecare coada.
+//    if (z.isempty() == 1) cout << "Da" << '\n';
+//    cin >> z;
+//    cin >> z;
+//    cin >> z;
+//    cin >> z;
+//    cin >> z;
+//    cin >> z;
+//    cin >> t;
+//    cin >> t;
+//    cin >> t;
+//    cin >> t;
+//    cin >> t;
+//    cin >> t;
+//    cin >> t;
+//    cin >> t;
+//    cin >> t;
+//    cin >> t;
+//    cin >> t;
+//    cin >> t;
+//    q = z + t;
+//    cout << q;
+//    cout << endl;
+//    q = z - t;
+//    cout << q;
+//    cout << endl;
+//    cout << z;
+//    cout << endl;
+//    cout << t;
+    Coada_sir queue(3);
+    queue.citire();
+    coada c, d, e;
+    c = queue.get(1);
+    d = queue.get(2);
+    e = c + d;
+    cout << e;
     cout << endl;
-    q = z - t;
-    cout << q;
+    e = c - d;
     cout << endl;
-    cout << z;
+    cout << e;
     cout << endl;
-    cout << t;
+    cout << c;
+    cout << endl;
+    cout << d;
+
+
 }
