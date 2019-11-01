@@ -25,7 +25,11 @@ class coada {
     Nod *last;
 public:
     coada() : first(NULL), last(NULL) {};
-
+    /// Copy constructor
+    coada(const coada &aux) {
+        first = aux.first;
+        last = aux.last;
+    }
     int isempty() {
         if (first == NULL) return 1;  // 1 daca stiva este goala.
         return 0;
@@ -63,6 +67,15 @@ public:
             first = first->next;
             delete t;
         }
+    }
+
+    //Supraincarcare operatorului[] necesar la functionarea demoului
+    char operator[](int i)
+    {
+        Nod *da=first;
+        for(int aux=0;aux<=i;aux++)
+            da = da->next;
+        return da->next->info;
     }
 
     // Supraincarcarea operatorului =
@@ -125,6 +138,10 @@ public:
     Coada_sir(int nr) : nr_elem(nr) {
         vector = new coada[nr];
     };
+    Coada_sir( Coada_sir &aux) {
+        nr_elem = aux.nr_elem;
+        vector = aux.vector;
+    }
 
     void citire() {
         for (int iterator = 0; iterator < nr_elem; iterator++) {
@@ -137,7 +154,6 @@ public:
                 vector[iterator].push(caracter);
                 nr--;
             }
-
         }
     }
 
